@@ -16,6 +16,7 @@ import {
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { contactService } from '../../../services/contactService';
+import WeatherWidget from '../../../components/WeatherWidget/WeatherWidget';
 import type { ContactDetail, MatterItem, ContactFormData } from '../../../types';
 import styles from './Detail.module.css';
 
@@ -212,6 +213,10 @@ const ContactDetailPage: React.FC = () => {
         <button className={styles.backBtn} onClick={() => navigate('/contacts')}>
           <ArrowLeftOutlined /> 返回列表
         </button>
+
+        <div style={{ marginBottom: 24 }}>
+          <WeatherWidget />
+        </div>
 
         {/* ====== VIEW MODE ====== */}
         {!editing && (

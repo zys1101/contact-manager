@@ -1,6 +1,4 @@
-/* ==========================================
-   Reminders.module.css — Dark Industrial
-   ========================================== */
+/* Contacts.module.css — Dark Industrial */
 
 .container {
   min-height: 100vh;
@@ -22,24 +20,10 @@
 .orb {
   position: absolute; width: 500px; height: 500px; border-radius: 50%;
   background: radial-gradient(circle, rgba(212,168,83,0.05) 0%, transparent 70%);
-  filter: blur(120px); top: -60px; left: -100px;
-  animation: orbFloat 28s ease-in-out infinite;
+  filter: blur(120px); top: -80px; right: -120px;
 }
 
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(60px, -30px) scale(1.05); }
-}
-
-.wrapper { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
-
-.backBtn {
-  background: transparent; border: 1px solid rgba(255,255,255,0.08);
-  color: #8b8f98; padding: 8px 20px; border-radius: 8px;
-  cursor: pointer; font-size: 13px; display: inline-flex;
-  align-items: center; gap: 8px; transition: all 0.25s; margin-bottom: 24px;
-}
-.backBtn:hover { color: #e6e1d8; border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.04); }
+.wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
 
 .header { margin-bottom: 28px; text-align: center; }
 
@@ -55,10 +39,14 @@
   letter-spacing: 4px; text-transform: uppercase;
 }
 
-/* ====== CARDS ====== */
+/* Weather */
+.weatherWrap { margin-bottom: 24px; }
+
+/* Cards */
 .searchCard {
   margin-bottom: 24px; border-radius: 14px !important;
-  background: rgba(22,27,34,0.85) !important; backdrop-filter: blur(20px);
+  background: rgba(22,27,34,0.85) !important;
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.06) !important;
 }
 .searchCard :global(.ant-card-body) { background: transparent; }
@@ -67,7 +55,8 @@
 
 .tableCard {
   border-radius: 14px !important;
-  background: rgba(22,27,34,0.85) !important; backdrop-filter: blur(20px);
+  background: rgba(22,27,34,0.85) !important;
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.06) !important;
 }
 .tableCard :global(.ant-card-body) { background: transparent; }
@@ -79,7 +68,9 @@
   font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
   border-bottom-color: rgba(255,255,255,0.06);
 }
-.table :global(.ant-table-tbody > tr > td) { border-bottom-color: rgba(255,255,255,0.04); color: #c0bdb6; }
+.table :global(.ant-table-tbody > tr > td) {
+  border-bottom-color: rgba(255,255,255,0.04); color: #c0bdb6;
+}
 .table :global(.ant-table-tbody > tr:hover > td) { background: rgba(255,255,255,0.03) !important; }
 
 .tableCard :global(.ant-pagination) { color: #8b8f98; }
@@ -88,33 +79,8 @@
 .tableCard :global(.ant-pagination-item-active) { border-color: #d4a853; background: rgba(212,168,83,0.12); }
 .tableCard :global(.ant-pagination-item-active a) { color: #d4a853; }
 
-.empty :global(.ant-empty-description) { color: #6b6e75; }
-
-/* ====== ACTION BAR (Compact Icon Buttons) ====== */
-.actionBar {
-  display: flex; gap: 2px;
-}
-
-.actionBtn {
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #8b8f98;
-}
-
-.actionBtn:hover { background: rgba(255,255,255,0.06); }
-.actionBtn:active { transform: scale(0.93); }
-
-.actionBtn[data-type="done"]:hover   { color: #52c41a; border-color: rgba(82,196,26,0.25); background: rgba(82,196,26,0.08); }
-.actionBtn[data-type="cancel"]:hover { color: #faad14; border-color: rgba(250,173,20,0.25); background: rgba(250,173,20,0.08); }
-.actionBtn[data-type="edit"]:hover   { color: #d4a853; border-color: rgba(212,168,83,0.25); background: rgba(212,168,83,0.08); }
-.actionBtn[data-type="reopen"]:hover { color: #4fc3f7; border-color: rgba(79,195,247,0.25); background: rgba(79,195,247,0.08); }
-.actionBtn[data-type="delete"]:hover { color: #e0556a; border-color: rgba(224,85,106,0.25); background: rgba(224,85,106,0.08); }
+.avatar { cursor: pointer; transition: transform 0.3s; }
+.avatar:hover { transform: scale(1.1); }
 
 @media (max-width: 768px) {
   .container { padding: 24px 16px 60px; }

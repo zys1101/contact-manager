@@ -10,6 +10,7 @@ import {
   NumberOutlined, ManOutlined, WomanOutlined, PlusOutlined,
 } from '@ant-design/icons';
 import { contactService } from '../../../services/contactService';
+import WeatherWidget from '../../../components/WeatherWidget/WeatherWidget';
 import type { ContactFormData } from '../../../types';
 import styles from './Add.module.css';
 
@@ -124,6 +125,10 @@ const ContactAdd: React.FC = () => {
         <button className={styles.backBtn} onClick={() => navigate('/contacts')}>
           <ArrowLeftOutlined /> 返回列表
         </button>
+
+        <div style={{ marginBottom: 24 }}>
+          <WeatherWidget />
+        </div>
 
         <div className={styles.card}>
           <h1 className={styles.title}>新增联系人</h1>

@@ -1,0 +1,126 @@
+/* WeatherWidget — Dark Glass Panel */
+.card {
+  background: rgba(22, 27, 34, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 16px 24px 18px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d4a853;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  animation: dayReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes dayReveal {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.day:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.date {
+  font-size: 11px;
+  font-weight: 700;
+  color: #d4a853;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.emoji {
+  font-size: 30px;
+  line-height: 1;
+  margin: 2px 0;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #c0bdb6;
+}
+
+.temp {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.tempHigh {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e6e1d8;
+}
+
+.tempSep {
+  font-size: 12px;
+  color: #6b6e75;
+}
+
+.tempLow {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8b8f98;
+}
+
+.meta {
+  display: flex;
+  gap: 10px;
+  font-size: 10px;
+  color: #6b6e75;
+}
+
+.placeholder {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 0;
+  color: #6b6e75;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  .day { flex-direction: row; justify-content: space-between; padding: 10px 14px; }
+  .emoji { font-size: 24px; }
+}
