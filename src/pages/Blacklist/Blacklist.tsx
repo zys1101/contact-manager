@@ -87,10 +87,6 @@ const Blacklist: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.bg}>
-        <div className={styles.grain} />
-        <div className={styles.orb} />
-      </div>
       <div className={styles.wrapper}>
         <button className={styles.backBtn} onClick={() => navigate('/contacts')}>
           <ArrowLeftOutlined /> 返回联系人

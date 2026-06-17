@@ -110,10 +110,6 @@ const Contacts: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.bg}>
-        <div className={styles.grain} />
-        <div className={styles.orb} />
-      </div>
       <div className={styles.wrapper}>
         <div className={styles.weatherWrap}>
           <WeatherWidget />
