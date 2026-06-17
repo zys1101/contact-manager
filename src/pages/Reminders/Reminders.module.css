@@ -1,0 +1,331 @@
+/* ==========================================
+   Reminders.module.css — Dark Industrial
+   ========================================== */
+
+.container {
+  min-height: 100vh;
+  background: #0a0e14;
+  position: relative;
+  isolation: isolate;
+  padding: 40px 24px 80px;
+}
+
+/* ---- Background ---- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.orb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,83,0.05) 0%, transparent 70%);
+  filter: blur(120px);
+  top: -60px;
+  left: -100px;
+  animation: orbFloat 28s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(60px, -30px) scale(1.05); }
+}
+
+/* ---- Wrapper ---- */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* ---- Back Button ---- */
+.backBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #8b8f98;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s;
+  margin-bottom: 24px;
+}
+.backBtn:hover {
+  color: #e6e1d8;
+  border-color: rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+}
+
+/* ---- Header ---- */
+.header {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.title {
+  font-family: 'PingFang SC','Microsoft YaHei',serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #e6e1d8;
+  margin: 0 0 6px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-family: 'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size: 11px;
+  color: #6b6e75;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* ====== WEATHER CARD ====== */
+.weatherCard {
+  background: rgba(22,27,34,0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 28px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.weatherHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.weatherTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #d4a853;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 1px;
+}
+
+.weatherGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.weatherDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  animation: dayReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes dayReveal {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.weatherDay:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+
+.weatherDate {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d4a853;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.weatherEmoji {
+  font-size: 36px;
+  line-height: 1;
+  margin: 4px 0;
+}
+
+.weatherLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #c0bdb6;
+}
+
+.weatherTemp {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.tempHigh {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e6e1d8;
+}
+
+.tempSep {
+  font-size: 14px;
+  color: #6b6e75;
+  margin: 0 2px;
+}
+
+.tempLow {
+  font-size: 16px;
+  font-weight: 500;
+  color: #8b8f98;
+}
+
+.weatherMeta {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: #6b6e75;
+  margin-top: 2px;
+}
+
+.weatherPlaceholder {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 32px 0;
+  color: #6b6e75;
+  font-size: 13px;
+}
+
+/* ====== CARDS ====== */
+.searchCard {
+  margin-bottom: 24px;
+  border-radius: 14px !important;
+  background: rgba(22,27,34,0.85) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.searchCard :global(.ant-card-body) {
+  background: transparent;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tableCard {
+  border-radius: 14px !important;
+  background: rgba(22,27,34,0.85) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.tableCard :global(.ant-card-body) {
+  background: transparent;
+}
+
+/* ====== TABLE DARK THEME OVERRIDES ====== */
+.table :global(.ant-table) {
+  background: transparent;
+  color: #e6e1d8;
+}
+
+.table :global(.ant-table-thead > tr > th) {
+  background: rgba(255,255,255,0.03);
+  color: #8b8f98;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom-color: rgba(255,255,255,0.06);
+}
+
+.table :global(.ant-table-tbody > tr > td) {
+  border-bottom-color: rgba(255,255,255,0.04);
+  color: #c0bdb6;
+}
+
+.table :global(.ant-table-tbody > tr:hover > td) {
+  background: rgba(255,255,255,0.03) !important;
+}
+
+/* Pagination */
+.tableCard :global(.ant-pagination) {
+  color: #8b8f98;
+}
+
+.tableCard :global(.ant-pagination-item) {
+  background: transparent;
+  border-color: rgba(255,255,255,0.06);
+}
+
+.tableCard :global(.ant-pagination-item a) {
+  color: #c0bdb6;
+}
+
+.tableCard :global(.ant-pagination-item-active) {
+  border-color: #d4a853;
+  background: rgba(212,168,83,0.12);
+}
+
+.tableCard :global(.ant-pagination-item-active a) {
+  color: #d4a853;
+}
+
+/* Empty */
+.empty :global(.ant-empty-description) {
+  color: #6b6e75;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .container {
+    padding: 24px 16px 60px;
+  }
+  .weatherGrid {
+    grid-template-columns: 1fr;
+  }
+  .weatherDay {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .weatherDate { min-width: 40px; }
+  .weatherEmoji { font-size: 28px; }
+  .title {
+    font-size: 24px;
+  }
+  .searchBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
