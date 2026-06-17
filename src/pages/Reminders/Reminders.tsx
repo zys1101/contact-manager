@@ -106,7 +106,7 @@ const Reminders: React.FC = () => {
     try {
       await reminderService.updateReminder(editingRecord.matterId, {
         matter: values.matter as string,
-        matterTime: (values.matterTime as dayjs.Dayjs).format('YYYY-MM-DD HH:mm:ss'),
+        matterTime: (values.matterTime as dayjs.Dayjs).format('YYYY-MM-DDTHH:mm:ss'),
       });
       message.success('修改成功');
       setEditModalVisible(false);
@@ -127,7 +127,7 @@ const Reminders: React.FC = () => {
     try {
       const data: ReminderFormData = {
         ctId: values.ctId as string,
-        matterTime: (values.matterTime as dayjs.Dayjs).format('YYYY-MM-DD HH:mm:ss'),
+        matterTime: (values.matterTime as dayjs.Dayjs).format('YYYY-MM-DDTHH:mm:ss'),
         matter: values.matter as string,
       };
       await reminderService.createReminder(data);
