@@ -1,0 +1,309 @@
+/* Dashboard.module.css — Clean White */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef0f5 100%);
+  padding: 36px 24px 80px;
+}
+
+.wrapper { max-width: 1100px; margin: 0 auto; }
+
+/* ---- Header ---- */
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-family: 'PingFang SC','Microsoft YaHei',serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e1f24;
+  margin: 0 0 6px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-family: 'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size: 11px;
+  color: #a0a3ab;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+/* ---- Stats Card Grid ---- */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 18px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.statIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.iconContacts { background: #e8f4f8; color: #1890ff; }
+.iconBlacklist { background: #fff0f0; color: #ff4d4f; }
+.iconPending { background: #fff7e6; color: #fa8c16; }
+.iconCompleted { background: #f0fff0; color: #52c41a; }
+.iconBirthday { background: #f0f0ff; color: #722ed1; }
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e1f24;
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #8c8e94;
+  margin-top: 2px;
+}
+
+/* ---- Charts Row ---- */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.chartCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.chartTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e1f24;
+  margin: 0 0 4px;
+}
+
+.chartSubtitle {
+  font-size: 12px;
+  color: #a0a3ab;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Growth Chart (full width) ---- */
+.growthCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+}
+
+.growthWrapper {
+  width: 100%;
+  height: 260px;
+}
+
+/* ---- Birthday Reminder ---- */
+.birthdayCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  margin-bottom: 24px;
+}
+
+.birthdayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.birthdayTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e1f24;
+  margin: 0;
+}
+
+.birthdayCount {
+  font-size: 12px;
+  color: #a0a3ab;
+  background: #f0f0f5;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+}
+
+.birthdayList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.birthdayItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #fafbfc;
+  border-radius: 8px;
+  border: 1px solid #eef0f5;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.birthdayItem:hover {
+  background: #f0f2f8;
+}
+
+.birthdayAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #722ed1, #eb2f96);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.birthdayInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.birthdayName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e1f24;
+}
+
+.birthdayDate {
+  font-size: 12px;
+  color: #8c8e94;
+}
+
+.birthdayBadge {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.badgeToday {
+  background: #fff0f0;
+  color: #ff4d4f;
+}
+
+.badgeSoon {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.badgeNormal {
+  background: #f0f0f5;
+  color: #8c8e94;
+}
+
+/* ---- Navigation ---- */
+.navBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #e8eaef;
+  background: #ffffff;
+  color: #3a3d45;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navBtn:hover {
+  background: #f7f8fc;
+  border-color: #d0d4dd;
+  transform: translateY(-1px);
+}
+
+/* ---- Loading ---- */
+.loadingContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef0f5 100%);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .container { padding: 24px 16px 60px; }
+  .title { font-size: 24px; }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .chartsRow { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .statsGrid { grid-template-columns: 1fr; }
+}

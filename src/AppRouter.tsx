@@ -13,6 +13,7 @@ const LoadingFallback: React.FC = () => (
 );
 
 const Login = lazy(() => import('./pages/Login/Login'));
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Contacts = lazy(() => import('./pages/Contacts/Contacts'));
 const ContactAdd = lazy(() => import('./pages/Contacts/Add/Add'));
 const ContactDetail = lazy(() => import('./pages/Contacts/Detail/Detail'));
@@ -25,6 +26,7 @@ const AppRouter: React.FC = () => {
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contacts/add" element={<ContactAdd />} />
           <Route path="/contacts/detail/:id" element={<ContactDetail />} />
