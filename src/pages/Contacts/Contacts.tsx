@@ -10,9 +10,16 @@ import {
 import type { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 import { contactService } from '../../services/contactService';
+import { BASE_URL } from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget/WeatherWidget';
 import { Contact, ContactQueryParams } from '../../types';
 import styles from './Contacts.module.css';
+
+const getFullUrl = (path: string | undefined): string | undefined => {
+  if (!path) return undefined;
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}${path}`;
+};
 
 const { Search } = Input;
 const { Option } = Select;
@@ -73,7 +80,7 @@ const Contacts: React.FC = () => {
     {
       title: '头像', dataIndex: 'avatar', key: 'avatar', width: 80,
       render: (avatar: string, record: Contact) => (
-        <Avatar size={48} src={avatar} icon={<UserOutlined />} className={styles.avatar}>
+        <Avatar size={48} src={getFullUrl(avatar)} icon={<UserOutlined />} className={styles.avatar}>
           {record.ctName?.charAt(0)}
         </Avatar>
       ),

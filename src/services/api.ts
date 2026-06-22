@@ -18,14 +18,15 @@ export interface PageResponse<T> {
   totalPages: number;
 }
 
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
+
 class ApiService {
   private instance: AxiosInstance;
 
   constructor() {
     this.instance = axios.create({
-      baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api',
+      baseURL: BASE_URL,
       timeout: 15000,
-      headers: { 'Content-Type': 'application/json' },
     });
 
     this.setupInterceptors();
@@ -101,15 +102,31 @@ class ApiService {
     return this.instance.delete(url, config) as Promise<T>;
   }
 
-  public upload<T = unknown>(url: string, file: File, config?: AxiosRequestConfig): Promise<T> {
+  public upload<T = unknown>(
+    url: string,
+    file: File,
+    config?: AxiosRequestConfig
+  ): Promise<T> {
     const formData = new FormData();
     formData.append('file', file);
+
     return this.instance.post(url, formData, {
       ...config,
-      headers: { ...config?.headers },
+      headers: {
+        ...config?.headers,
+      },
+      // 删除可能从实例默认配置继承的 Content-Type: application/json
+      // 让浏览器根据 FormData 自动设置 multipart/form-data 及 boundary
+      transformRequest: [(data, headers) => {
+        if (headers) {
+          delete headers['Content-Type'];
+        }
+        return data;
+      }],
     }) as Promise<T>;
   }
 }
 
 const apiService = new ApiService();
+export { BASE_URL };
 export default apiService;

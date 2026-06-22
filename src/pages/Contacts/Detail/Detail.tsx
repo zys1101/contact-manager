@@ -16,9 +16,16 @@ import {
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { contactService } from '../../../services/contactService';
+import { BASE_URL } from '../../../services/api';
 import WeatherWidget from '../../../components/WeatherWidget/WeatherWidget';
 import type { ContactDetail, MatterItem, ContactFormData } from '../../../types';
 import styles from './Detail.module.css';
+
+const getFullUrl = (path: string | undefined): string | undefined => {
+  if (!path) return undefined;
+  if (path.startsWith('http')) return path;
+  return `${BASE_URL}${path}`;
+};
 
 const phoneRegex = /^1[3-9]\d{9}$/;
 const zipRegex = /^\d{6}$/;
@@ -133,8 +140,9 @@ const ContactDetailPage: React.FC = () => {
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !id) return;
-    if (!['image/jpeg', 'image/png'].includes(file.type)) {
-      message.error('仅支持 JPG、PNG 格式');
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+      message.error('仅支持 JPG、JPEG、PNG 格式的图片');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
@@ -150,6 +158,8 @@ const ContactDetailPage: React.FC = () => {
       message.error('头像上传失败');
     } finally {
       setUploading(false);
+      // 重置 input 以允许重复上传同一文件
+      e.target.value = '';
     }
   };
 
@@ -220,7 +230,7 @@ const ContactDetailPage: React.FC = () => {
               <div className={styles.headerLeft}>
                 <div className={styles.avatarBox}>
                   {detail.avatar ? (
-                    <img src={detail.avatar} alt={detail.ctName} className={styles.avatarImg} />
+                    <img src={getFullUrl(detail.avatar)} alt={detail.ctName} className={styles.avatarImg} />
                   ) : (
                     <UserOutlined className={styles.avatarPlaceholder} />
                   )}
