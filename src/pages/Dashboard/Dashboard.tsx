@@ -9,7 +9,7 @@ import {
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
-  Legend,
+  Legend, PieLabelRenderProps,
 } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { dashboardService, DashboardData } from '../../services/dashboardService';
@@ -17,9 +17,39 @@ import styles from './Dashboard.module.css';
 
 const GENDER_COLORS = ['#1890ff', '#eb2f96'];
 const LINE_COLOR = '#d4a853';
-const PENDING_COLOR = '#fa8c16';
 const COMPLETED_COLOR = '#52c41a';
 const UNCOMPLETED_COLOR = '#d9d9d9';
+
+/** pie label renderer */
+const renderPieLabel = ({ name, percent }: PieLabelRenderProps) => {
+  const pct = typeof percent === 'number' ? (percent * 100).toFixed(0) : '0';
+  return `${name} ${pct}%`;
+};
+
+/** line chart custom tooltip */
+const LineTooltip = (props: { active?: boolean; payload?: Array<{ value: number }>; label?: string }) => {
+  const { active, payload, label } = props;
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        background: '#fff', padding: '8px 12px', borderRadius: 8,
+        border: '1px solid #e8eaef', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+      }}>
+        <div style={{ fontSize: 12, color: '#8c8e94', marginBottom: 4 }}>{label}</div>
+        <div style={{ fontSize: 14, fontWeight: 600, color: '#1e1f24' }}>
+          新增 {payload[0].value} 人
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
+
+/** x-axis tick formatter */
+const formatMonth = (val: string) => {
+  const parts = val.split('-');
+  return `${parts[1]}月`;
+};
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -59,29 +89,10 @@ const Dashboard: React.FC = () => {
 
   const { statsCard, genderDistribution, matterCompletion, contactGrowth, birthdayReminders } = data;
 
-  // PieChart data for completion rate
   const completionPieData = [
     { name: '已完成', value: matterCompletion.completed },
     { name: '未完成', value: matterCompletion.uncompleted },
   ];
-
-  // Custom tooltip for the line chart
-  const LineTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div style={{
-          background: '#fff', padding: '8px 12px', borderRadius: 8,
-          border: '1px solid #e8eaef', boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-        }}>
-          <div style={{ fontSize: 12, color: '#8c8e94', marginBottom: 4 }}>{label}</div>
-          <div style={{ fontSize: 14, fontWeight: 600, color: '#1e1f24' }}>
-            新增 {payload[0].value} 人
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className={styles.container}>
@@ -175,7 +186,7 @@ const Dashboard: React.FC = () => {
                     outerRadius={90}
                     paddingAngle={4}
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={renderPieLabel}
                   >
                     {genderDistribution.map((_, idx) => (
                       <Cell key={`cell-${idx}`} fill={GENDER_COLORS[idx]} />
@@ -203,7 +214,7 @@ const Dashboard: React.FC = () => {
                     outerRadius={90}
                     paddingAngle={4}
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={renderPieLabel}
                   >
                     <Cell fill={COMPLETED_COLOR} />
                     <Cell fill={UNCOMPLETED_COLOR} />
@@ -227,10 +238,7 @@ const Dashboard: React.FC = () => {
                 <XAxis
                   dataKey="month"
                   tick={{ fontSize: 12, fill: '#8c8e94' }}
-                  tickFormatter={(val) => {
-                    const [, m] = val.split('-');
-                    return `${m}月`;
-                  }}
+                  tickFormatter={formatMonth}
                 />
                 <YAxis tick={{ fontSize: 12, fill: '#8c8e94' }} allowDecimals={false} />
                 <Tooltip content={<LineTooltip />} />

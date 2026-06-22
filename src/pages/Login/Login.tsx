@@ -49,7 +49,7 @@ const Login: React.FC = () => {
       localStorage.setItem('userInfo', JSON.stringify(response.user));
 
       message.success('登录成功');
-      navigate('/contacts', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (err: unknown) {
       const error = err as Error;
       setErrorMsg(error.message || '登录失败，请重试');
