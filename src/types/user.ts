@@ -4,6 +4,7 @@
 export interface UserInfo {
   userId: string;
   username: string;
+  theme?: string;
 }
 
 // 登录请求参数
@@ -26,6 +27,7 @@ export interface CurrentUser {
   username: string;
   createdAt: string;
   lastLoginAt: string | null;
+  theme?: string;
 }
 
 // Zustand Store 状态

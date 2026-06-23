@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
-  Button, Skeleton, Empty, message, Spin, Tag, Table, Popconfirm,
+  Button, Skeleton, Empty, message, Spin, Tag, Table, Popconfirm, Tag as AntTag, Modal, Checkbox, Form,
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import {
@@ -12,13 +12,15 @@ import {
   UserOutlined, PhoneOutlined, MailOutlined, EnvironmentOutlined,
   QqOutlined, WechatOutlined, CalendarOutlined, NumberOutlined,
   ManOutlined, WomanOutlined, PlusOutlined, UploadOutlined,
-  StopOutlined,
+  StopOutlined, TagOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { contactService } from '../../../services/contactService';
+import { tagService } from '../../../services/tagService';
 import { BASE_URL } from '../../../services/api';
 import WeatherWidget from '../../../components/WeatherWidget/WeatherWidget';
 import type { ContactDetail, MatterItem, ContactFormData } from '../../../types';
+import { Tag as TagType } from '../../../types/tag';
 import styles from './Detail.module.css';
 
 const getFullUrl = (path: string | undefined): string | undefined => {
@@ -51,6 +53,8 @@ const MATTER_STATUS_LABELS: Record<number, { color: string; text: string }> = {
   2: { color: 'green', text: '已完成' },
 };
 
+const TAG_COLORS = ['#1890ff', '#52c41a', '#faad14', '#ff4d4f', '#722ed1', '#13c2c2', '#eb2f96', '#2f54eb'];
+
 const ContactDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -60,6 +64,12 @@ const ContactDetailPage: React.FC = () => {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  // Tags
+  const [tags, setTags] = useState<TagType[]>([]);
+  const [tagModalOpen, setTagModalOpen] = useState(false);
+  const [tagForm] = Form.useForm();
+  const [savingTags, setSavingTags] = useState(false);
 
   const {
     register,
@@ -80,6 +90,8 @@ const ContactDetailPage: React.FC = () => {
     try {
       const data = await contactService.getContactById(id);
       setDetail(data);
+      const allTags = await tagService.getTags();
+      setTags(allTags);
     } catch {
       message.error('加载联系人详情失败');
     } finally {
@@ -158,7 +170,6 @@ const ContactDetailPage: React.FC = () => {
       message.error('头像上传失败');
     } finally {
       setUploading(false);
-      // 重置 input 以允许重复上传同一文件
       e.target.value = '';
     }
   };
@@ -174,7 +185,52 @@ const ContactDetailPage: React.FC = () => {
     }
   };
 
-  // ---- matters columns ----
+  // Tag management
+  const openTagModal = () => {
+    if (!detail) return;
+    const currentTagIds = (detail as any).tags?.map((t: any) => t.tagId) || [];
+    tagForm.setFieldsValue({ tagIds: currentTagIds });
+    setTagModalOpen(true);
+  };
+
+  const handleSaveTags = async (values: { tagIds: string[] }) => {
+    if (!id) return;
+    setSavingTags(true);
+    try {
+      await tagService.assignTagsToContact(id, values.tagIds);
+      message.success('标签更新成功');
+      setTagModalOpen(false);
+      loadDetail();
+    } catch {
+      message.error('标签更新失败');
+    } finally {
+      setSavingTags(false);
+    }
+  };
+
+  const renderDetailTags = () => {
+    const currentTags = (detail as any).tags || [];
+    if (currentTags.length === 0) {
+      return (
+        <AntTag color="default" style={{ cursor: 'pointer' }} onClick={openTagModal}>
+          <PlusOutlined style={{ fontSize: 10 }} /> 添加标签
+        </AntTag>
+      );
+    }
+    return (
+      <>
+        {currentTags.map((t: any, i: number) => (
+          <AntTag key={t.tagId} color={t.tagColor || TAG_COLORS[i % TAG_COLORS.length]} style={{ margin: '2px 4px' }}>
+            {t.tagName}
+          </AntTag>
+        ))}
+        <AntTag color="default" style={{ cursor: 'pointer' }} onClick={openTagModal}>
+          <PlusOutlined style={{ fontSize: 10 }} />
+        </AntTag>
+      </>
+    );
+  };
+
   const matterColumns: ColumnsType<MatterItem> = [
     { title: '事项时间', dataIndex: 'matterTime', width: 180,
       render: (t: string) => dayjs(t).format('YYYY-MM-DD HH:mm'),
@@ -188,7 +244,6 @@ const ContactDetailPage: React.FC = () => {
     },
   ];
 
-  // ---- loading state ----
   if (loading) {
     return (
       <div className={styles.container}>
@@ -199,7 +254,6 @@ const ContactDetailPage: React.FC = () => {
     );
   }
 
-  // ---- empty / error ----
   if (!detail) {
     return (
       <div className={styles.container}>
@@ -223,7 +277,6 @@ const ContactDetailPage: React.FC = () => {
           <WeatherWidget />
         </div>
 
-        {/* ====== VIEW MODE ====== */}
         {!editing && (
           <div className={styles.card}>
             <div className={styles.headerRow}>
@@ -244,6 +297,9 @@ const ContactDetailPage: React.FC = () => {
               <div className={styles.headerRight}>
                 <h1 className={styles.name}>{detail.ctName}</h1>
                 <Tag color={detail.ctMf === '男' ? 'blue' : 'pink'}>{detail.ctMf}</Tag>
+                <div className={styles.tagGroup}>
+                  {renderDetailTags()}
+                </div>
               </div>
               <div className={styles.headerActions}>
                 <Button icon={<EditOutlined />} onClick={startEdit}>编辑</Button>
@@ -284,7 +340,6 @@ const ContactDetailPage: React.FC = () => {
           </div>
         )}
 
-        {/* ====== EDIT MODE ====== */}
         {editing && (
           <div className={styles.card}>
             <h2 className={styles.editTitle}>编辑联系人</h2>
@@ -386,11 +441,32 @@ const ContactDetailPage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Tag Modal - inside the outer div but outside .wrapper */}
+      <Modal
+        title={<><TagOutlined /> 管理标签</>}
+        open={tagModalOpen}
+        onCancel={() => setTagModalOpen(false)}
+        onOk={() => tagForm.submit()}
+        okText="保存"
+        cancelText="取消"
+      >
+        <Form form={tagForm} onFinish={handleSaveTags}>
+          <Form.Item name="tagIds" label="选择标签">
+            <Checkbox.Group style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {tags.map((tag) => (
+                <Checkbox key={tag.tagId} value={tag.tagId}>
+                  <AntTag color={tag.tagColor}>{tag.tagName}</AntTag>
+                </Checkbox>
+              ))}
+            </Checkbox.Group>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };
 
-// ---- Info field sub-component ----
 const Field: React.FC<{
   label: string; value: string; icon: React.ReactNode; span?: boolean;
 }> = ({ label, value, icon, span }) => (

@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons';
 import { authService } from '../../services/authService';
 import { useAuthStore } from '../../store';
+import { useTheme } from '../../context/ThemeContext';
 import styles from './Login.module.css';
 
 const loginSchema = z.object({
@@ -24,6 +25,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const { login: storeLogin, setLoading } = useAuthStore();
+  const { setTheme } = useTheme();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
@@ -47,6 +49,11 @@ const Login: React.FC = () => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('refreshToken', response.refreshToken);
       localStorage.setItem('userInfo', JSON.stringify(response.user));
+
+      // Sync theme from backend
+      if (response.user.theme) {
+        setTheme(response.user.theme as 'light' | 'dark');
+      }
 
       message.success('登录成功');
       navigate('/dashboard', { replace: true });

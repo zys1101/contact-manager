@@ -19,6 +19,10 @@ const ContactAdd = lazy(() => import('./pages/Contacts/Add/Add'));
 const ContactDetail = lazy(() => import('./pages/Contacts/Detail/Detail'));
 const Blacklist = lazy(() => import('./pages/Blacklist/Blacklist'));
 const Reminders = lazy(() => import('./pages/Reminders/Reminders'));
+const Tags = lazy(() => import('./pages/Tags/Tags'));
+const OperationLog = lazy(() => import('./pages/OperationLog/OperationLog'));
+const ExcelPage = lazy(() => import('./pages/Excel/Excel'));
+const Timeline = lazy(() => import('./pages/Timeline/Timeline'));
 
 const AppRouter: React.FC = () => {
   return (
@@ -32,6 +36,9 @@ const AppRouter: React.FC = () => {
           <Route path="/contacts/detail/:id" element={<ContactDetail />} />
           <Route path="/blacklist" element={<Blacklist />} />
           <Route path="/reminders" element={<Reminders />} />
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/logs" element={<OperationLog />} />
+          <Route path="/contacts/excel" element={<ExcelPage />} />
           <Route path="/" element={<Navigate replace to="/login" />} />
         </Routes>
       </Suspense>

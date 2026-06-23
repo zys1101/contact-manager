@@ -287,6 +287,30 @@
   transform: translateY(-1px);
 }
 
+/* ---- Theme Toggle ---- */
+.themeToggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.themeBtn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #e8eaef;
+  background: #fff;
+  color: #3a3d45;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.themeBtn:hover {
+  background: #f0f2f8;
+  border-color: #d0d4dd;
+}
+
 /* ---- Loading ---- */
 .loadingContainer {
   min-height: 100vh;
@@ -296,7 +320,48 @@
   background: linear-gradient(180deg, #f6f7fb 0%, #eef0f5 100%);
 }
 
+/* ---- Dark Mode ---- */
+[data-theme="dark"] .container {
+  background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+}
+
+[data-theme="dark"] .statCard,
+[data-theme="dark"] .chartCard,
+[data-theme="dark"] .growthCard,
+[data-theme="dark"] .birthdayCard {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .title { color: var(--text-primary); }
+[data-theme="dark"] .statValue { color: var(--text-primary); }
+[data-theme="dark"] .statLabel { color: var(--text-secondary); }
+[data-theme="dark"] .chartTitle { color: var(--text-primary); }
+[data-theme="dark"] .navBtn {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .navBtn:hover {
+  background: var(--hover-bg);
+}
+
+[data-theme="dark"] .birthdayItem {
+  background: var(--hover-bg);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .birthdayItem:hover {
+  background: #1c2333;
+}
+
+[data-theme="dark"] .loadingContainer {
+  background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+}
+
 /* ---- Responsive ---- */
+
 @media (max-width: 768px) {
   .container { padding: 24px 16px 60px; }
   .title { font-size: 24px; }

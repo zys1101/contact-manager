@@ -1,0 +1,107 @@
+/* src/pages/Excel/Excel.module.css */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef0f5 100%);
+  padding: 36px 24px 80px;
+}
+
+.wrapper { max-width: 800px; margin: 0 auto; }
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e1f24;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #a0a3ab;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #e8eaef;
+  border-radius: 8px;
+  color: #3a3d45;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.backBtn:hover { background: #fff; border-color: #d0d4dd; }
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e1f24;
+  margin: 0 0 16px;
+}
+
+.uploadArea {
+  border: 2px dashed #d0d4dd;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.uploadArea:hover {
+  border-color: #1890ff;
+  background: rgba(24, 144, 255, 0.02);
+}
+
+.uploadArea.dragOver {
+  border-color: #1890ff;
+  background: rgba(24, 144, 255, 0.05);
+}
+
+.resultBox {
+  background: #fafbfc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.successText {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.errorText {
+  color: #ff4d4f;
+}
+
+.errorList {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+
+.errorList li {
+  color: #8c8e94;
+  font-size: 12px;
+  margin: 4px 0;
+}

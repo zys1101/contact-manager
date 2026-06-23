@@ -5,6 +5,7 @@ import {
   TeamOutlined, StopOutlined, ClockCircleOutlined,
   CheckCircleOutlined, GiftOutlined, UserOutlined,
   ContactsOutlined, FileTextOutlined,
+  ImportOutlined, ExportOutlined,
 } from '@ant-design/icons';
 import {
   PieChart, Pie, Cell, ResponsiveContainer,
@@ -13,6 +14,8 @@ import {
 } from 'recharts';
 import { useNavigate } from 'react-router-dom';
 import { dashboardService, DashboardData } from '../../services/dashboardService';
+import { useTheme } from '../../context/ThemeContext';
+import apiService from '../../services/api';
 import styles from './Dashboard.module.css';
 
 const GENDER_COLORS = ['#1890ff', '#eb2f96'];
@@ -53,8 +56,20 @@ const formatMonth = (val: string) => {
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<DashboardData | null>(null);
+
+  // Sync theme to backend
+  const handleToggleTheme = async () => {
+    toggleTheme();
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    try {
+      await apiService.put('/user/theme', { theme: newTheme });
+    } catch {
+      // ignore - theme will be synced next time
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -113,6 +128,22 @@ const Dashboard: React.FC = () => {
           </button>
           <button className={styles.navBtn} onClick={() => navigate('/blacklist')}>
             <StopOutlined /> 黑名单
+          </button>
+          <button className={styles.navBtn} onClick={() => navigate('/tags')}>
+            <span style={{ fontSize: 16 }}>🏷️</span> 标签管理
+          </button>
+          <button className={styles.navBtn} onClick={() => navigate('/logs')}>
+            <span style={{ fontSize: 16 }}>📋</span> 操作日志
+          </button>
+          <button className={styles.navBtn} onClick={() => navigate('/contacts/excel')}>
+            <span style={{ fontSize: 16 }}>📊</span> Excel导入导出
+          </button>
+        </div>
+
+        {/* Theme Toggle */}
+        <div className={styles.themeToggle}>
+          <button className={styles.themeBtn} onClick={handleToggleTheme} title="切换主题">
+            {theme === 'light' ? '🌙 深色模式' : '☀️ 浅色模式'}
           </button>
         </div>
 

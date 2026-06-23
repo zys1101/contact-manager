@@ -1,0 +1,133 @@
+/* src/pages/Tags/Tags.module.css */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f6f7fb 0%, #eef0f5 100%);
+  padding: 36px 24px 80px;
+}
+
+.wrapper { max-width: 1100px; margin: 0 auto; }
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-family: 'PingFang SC','Microsoft YaHei',serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e1f24;
+  margin: 0 0 6px;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  font-family: 'SF Mono','Cascadia Code','Consolas',monospace;
+  font-size: 11px;
+  color: #a0a3ab;
+  margin: 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #e8eaef;
+  border-radius: 8px;
+  color: #3a3d45;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.backBtn:hover { background: #fff; border-color: #d0d4dd; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.tagCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e8eaef;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.tagCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.tagHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tagDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tagName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1f24;
+  flex: 1;
+}
+
+.tagActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.tagCount {
+  font-size: 12px;
+  color: #8c8e94;
+  margin-top: 4px;
+}
+
+.addCard {
+  background: transparent;
+  border: 2px dashed #d0d4dd;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #8c8e94;
+}
+
+.addCard:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+  background: rgba(24,144,255,0.02);
+}
+
+.addCard .plusIcon { font-size: 28px; margin-bottom: 8px; }
+.addCard span { font-size: 14px; }
+
+@media (max-width: 768px) {
+  .container { padding: 24px 16px 60px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+}
